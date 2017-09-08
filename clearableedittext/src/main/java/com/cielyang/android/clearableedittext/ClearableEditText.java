@@ -150,7 +150,13 @@ public class ClearableEditText extends EditText implements TextWatcher {
             super(superState);
             mIsClearIconShown = isClearIconShown;
         }
-
+        
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeByte(mIsClearIconShown);
+        }
+        
         boolean isClearIconShown() {
             return mIsClearIconShown;
         }
