@@ -25,7 +25,16 @@ public class ClearableEditText extends EditText implements TextWatcher {
     private Drawable mClearIconDrawable;
 
     private boolean mIsClearIconShown = false;
-
+    private Listener listener=null;
+    public interface Listener {
+		void didClearText();
+	}
+    
+    
+    public void setListener(Listener listener) {
+		this.listener = listener;
+	}
+    
     public ClearableEditText(Context context) {
         this(context, null);
     }
@@ -94,6 +103,9 @@ public class ClearableEditText extends EditText implements TextWatcher {
             setText(null);
             event.setAction(MotionEvent.ACTION_CANCEL);
             showClearIcon(false);
+            if (listener != null) {
+						listener.didClearText();
+			}
             return false;
         }
         return super.onTouchEvent(event);
